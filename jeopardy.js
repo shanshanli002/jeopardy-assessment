@@ -148,11 +148,11 @@ $('#restart').on('click', async function(event){
     function setUpBoard(){
         //jeopardy game is being populated while hidden from user
         timeout = setTimeout(setupAndStart,3000);
-        //after 4 seconds when the date is done populating, will hide spinner and reveal board to user
+        //after 5 seconds when the date is done populating, will hide spinner and reveal board to user
         timeout= setTimeout(function(){
             hideLoadingView();
             $('#jeopardy').removeAttr("hidden");
-        }, 4000);
+        }, 5000);
     }
 
     setUpBoard();
