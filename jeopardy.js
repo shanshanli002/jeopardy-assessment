@@ -95,6 +95,8 @@ async function fillTable() {
 function handleClick(evt) {
     //set cardClicked to the dom element that was clicked
     let cardClicked = $(evt.target);
+
+   
     //check if showing attr is empty, if it's empty that means "?" is showing and need to change it to a question
     if(cardClicked.attr("showing") == " "){
         //div with .q is hidden
@@ -136,31 +138,31 @@ function hideLoadingView() {
  * - create HTML table
  * */
 
-async function setupAndStart() {
-    await fillTable();
-}
 
 /** On click of start / restart button, set up game. */
 
 $('#restart').on('click', async function(event){
     //onclick will automatically reveal loading spinner
     showLoadingView();
-    function setUpBoard(){
-        //jeopardy game is being populated while hidden from user
-        timeout = setTimeout(setupAndStart,3000);
-        //after 5 seconds when the date is done populating, will hide spinner and reveal board to user
-        timeout= setTimeout(function(){
-            hideLoadingView();
-            $('#jeopardy').removeAttr("hidden");
-        }, 5000);
-    }
-
-    setUpBoard();
+    setupAndStart();
 });
+
+async function setupAndStart() {
+    await fillTable();
+    hideLoadingView();
+    $('#jeopardy').removeAttr("hidden");
+}
 
 /** On page load, add event handler for clicking clues */
 //event delegation for dynamically created elements
 $(document).on('click', '.clue', function(event){
     event.preventDefault();
+    //console.log($(this));
+    
     handleClick(event);
+    
+    //check if event.target is clue or text
+    // another option 
+    //$(this).children('.q').hide();
+    //$(this).children('.answer').show();
 });
